@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+>
+<head>
+    <title>Home page</title>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Predictor</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/match/page/1}">Prediction center</a></li>
+                <li><a th:href="@{/ranking/page}">Standings</a></li>
+                <li th:action="@{/logout}" method="post">
+                    <form th:action="@{/logout}" method="post">
+                        <div><input type="submit" value="Log out"/></div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<h1>
+    <div> Welcome to World Cup predictor,
+        <td th:text="${username}"/>
+    </div>
+</h1>
+</body>
+</html>

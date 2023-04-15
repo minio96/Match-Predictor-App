@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+    <style>
+        .center {
+            width: 60%;
+            border: 3px solid #73AD21;
+            background-color: #b0be9b;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="success">Predictor</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/match/page/1}">Prediction center</a></li>
+                <li><a th:href="@{/ranking/page}">Standings</a></li>
+                <li th:action="@{/logout}" method="post">
+                    <form th:action="@{/logout}" method="post">
+                        <div><input type="submit" value="Log out"/></div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--User with id-->
+<!--<td th:text="${user}"></td>-->
+<!--logged in-->
+
+<table style="width:100%">
+    <tr>
+        <th><a th:href="@{/match/page/1}">Day 1</a></th>
+        <th><a th:href="@{/match/page/2}">Day 2</a></th>
+        <th><a th:href="@{/match/page/3}">Day 3</a></th>
+        <th><a th:href="@{/match/page/4}">Day 4</a></th>
+        <th><a th:href="@{/match/page/5}">Day 5</a></th>
+        <th><a th:href="@{/match/page/6}">Day 6</a></th>
+        <th><a th:href="@{/match/page/7}">Day 7</a></th>
+    </tr>
+</table>
+<div th:if="${not #lists.isEmpty(matches)}">
+    <form th:action="@{/match/prediction}" th:object="${matchesToWrite}" method="post">
+
+        <div th:each="match, itemStat : *{match}" class="center">
+            <table>
+                <tr>
+                    Date:
+                    <th th:text="${match.matchDate}"></th>
+                </tr>
+                <tr>
+                    <td th:text="${match.home}"></td>
+                    <td><img th:src="${match.homeFlagLink}" alt="home flag" style="height: 80px; width: 125px"></td>
+                    <td th:if="${match.finished == 'TRUE'}">
+                        <strong th:text="${match.homeScore}"/>:<strong th:text="${match.awayScore}"/>
+                    </td>
+                    <td th:unless="${match.finished == 'TRUE'}">
+                        <div><label><input type="number" th:placeholder="${match.homePrediction}" th:maxlength="2"
+                                           th:field="${matchesToWrite[__${matchStat.index}__].homePrediction}"/>
+                        </label>
+                            :
+                            <label><input type="number" th:placeholder="${match.awayPrediction}" th:maxlength="2"
+                                          th:field="${matchesToWrite[__${matchStat.index}__].awayPrediction}"/>
+                            </label></div>
+                    </td>
+                    <td th:text="${match.away}"></td>
+                    <td><img th:src="${match.awayFlagLink}" alt="away flag" style="height: 80px; width: 125px"></td>
+
+                </tr>
+            </table>
+        </div>
+        <div><input type="submit" value="Save"/></div>
+    </form>
+    <div th:if="${#lists.isEmpty(matches)}" class="center">
+        This round has not started yet
+    </div>
+</div>
+</body>
+</html>

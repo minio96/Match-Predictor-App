@@ -1,0 +1,17 @@
+<html>
+<body class="hold-transition register-page">
+<div class="register-box">
+    <div class="card">
+        <h2>Create your new account here</h2>
+        <form action="#" th:action="@{/register}" th:object="${player}" method="post">
+            <p>name: <input type="text" th:field="*{name}"/></p>
+            <p>groupId: <input type="text" th:field="*{groupId}"/></p>
+            <p>password: <input type="password" th:field="*{password}"/></p>
+            <p><input type="submit" value="Submit"/>
+                <input type="reset" value="Reset"/></p>
+        </form>
+        <a th:href="@{/login}">Already registered. Press to login</a>
+    </div>
+</div>
+</body>
+</html>

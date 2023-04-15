@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Home page</title>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{success}">Predictor</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a th:href="@{/match/page/1}">Prediction center</a></li>
+                <li><a th:href="@{/ranking/page}">Standings</a></li>
+                <li th:action="@{/logout}" method="post">
+                    <form th:action="@{/logout}" method="post">
+                        <div><input type="submit" value="Log out"/></div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div th:if="${not #lists.isEmpty(players)}">
+    <h1>Players ranking</h1>
+    <div>
+        <tr th:each="player,iter : ${players}">
+            <div th:text="${iter.index + 1} + ' : ' + ${player.name} + ' - ' + ${player.points}"/>
+    </div>
+    </tr>
+</div>
+
+<div th:if="${#lists.isEmpty(players)}">
+    There are no players yet
+</div>
+
+</body>
+</html>
